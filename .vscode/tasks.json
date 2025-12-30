@@ -1,46 +1,47 @@
 {
-    "tasks": [
-        {
-            "type": "cppbuild",
-            "label": "C/C++: g++.exe compilar archivo activo",
-            "command": "C:\\msys64\\ucrt64\\bin\\g++.exe",
-            "args": [
-                "-fdiagnostics-color=always",
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "detail": "Tarea generada por el depurador."
-        },
-        {
-      "label": "Run test cases (solo windows)",
-      "type": "shell",
+  "tasks": [
+    {
+      "type": "cppbuild",
+      "label": "C/C++: g++ compilar archivo activo",
+      "command": "/usr/bin/g++",
+      "args": [
+        "-fdiagnostics-color=always",
+        "-g",
+        "${file}",
+        "-o",
+        "${fileDirname}/${fileBasenameNoExtension}"
+      ],
       "options": {
-        "shell": {
-          "executable": "cmd.exe",
-          "args": ["/c"]
-        }
+        "cwd": "${fileDirname}"
       },
-      "command": "g++ \"${file}\" -O2 -std=c++17 -Wall -o \"${fileBasenameNoExtension}.exe\" && for %x in (${fileBasenameNoExtension}*.in) do @echo ===== %x ===== & \"${fileBasenameNoExtension}.exe\" < \"%x\" > \"%~nx.tmp\" & type \"%~nx.tmp\" & fc /n \"%~nx.tmp\" \"%~nx.out\" >nul & if errorlevel 1 (echo XXXXX RESULT: WA XXXXX) else (echo RESULT: AC) & del \"%~nx.tmp\" & echo.",
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "group": "build",
+      "detail": "Tarea generada por el depurador."
+    },
+    {
+      "label": "Run test cases (C++,linux)",
+      "type": "shell",
+      "command": "base=\"${fileBasenameNoExtension}\"; for f in \"${base}\"*.in; do echo \"======= $f =======\"; expected=\"${f%.in}.out\"; \"./$base\" < \"$f\" > .tmp; cat .tmp; if diff -w -B .tmp \"$expected\" >/dev/null; then echo -e \"\\033[32m--- AC ---\\033[0m\"; else echo -e \"\\033[31m--- WA ---\\033[0m\"; fi; cat \"$expected\"; echo; done;",
       "group": {
         "kind": "test",
         "isDefault": true
       },
-      "problemMatcher": []
+      "dependsOn":[
+        "C/C++: g++ compilar archivo activo"
+      ]
+    },
+    {
+      "label": "Run test cases (python, linux)",
+      "type": "shell",
+      "command": "base=\"${fileBasenameNoExtension}\"; for f in \"${base}\"*.in; do echo \"======= $f =======\"; expected=\"${f%.in}.out\";pypy3 \"$base.py\" < \"$f\" > .tmp; cat .tmp; if diff -w -B .tmp \"$expected\" >/dev/null; then echo -e \"\\033[32m--- AC ---\\033[0m\"; else echo -e \"\\033[31m--- WA ---\\033[0m\"; fi; cat \"$expected\"; echo; done;",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      }
     }
 
-
-    ],
-    "version": "2.0.0"
+  ],
+  "version": "2.0.0"
 }
