@@ -1,0 +1,7 @@
+- usar desempaquetadores for(auto **[u, v]** : vector<pair<int,int>>) tambien sirve para structs
+- usar asserts
+- usar macros esta bien
+- terminal a la derecha
+- script para TEST cases
+- .run focus
+- F5 para continue en debugger
