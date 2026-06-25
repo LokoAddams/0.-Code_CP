@@ -51,19 +51,27 @@ int main() {
   cin.tie(0);
   cout.tie(0);
 
-  scin(s)
-  ll sum = 0;
+  icin(n)icin(o)
+  vi a(n);
+  form(i,0,n)
+    cin >> a[i];
   int cont = 0;
-  while(sum >= 10 or s.size() >= 2)
+  if(a[o-1]) cont++;
+  for (int r = o , l = o - 2; ((r < n) or (l >= 0)) ; r++, l--)
   {
-    sum = 0;
-    for (auto& c : s) {
-      int num = c - '0';
-      sum += num;
+    if(((r < n) and (l >= 0)))
+    {
+      if(a[l] + a[r] == 2) cont += 2;
     }
-    s = to_string(sum);
-    cont++;
+    else
+    {
+      if(!(r < n))
+        if(a[l]) cont++;
+      if(!(l >= 0))
+        if(a[r]) cont++;
+    }
   }
   cout << cont << endl;
+
   return 0;
 }

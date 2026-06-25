@@ -94,5 +94,11 @@
         "typeindex": "cpp",
         "typeinfo": "cpp",
         "valarray": "cpp"
+    },
+    "editor.quickSuggestions": {
+    "other": "off",
+    "comments": "off",
+    "strings": "off"
     }
+
 }
