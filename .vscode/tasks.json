@@ -1,47 +1,66 @@
 {
-  "tasks": [
-    {
-      "type": "cppbuild",
-      "label": "C/C++: g++ compilar archivo activo",
-      "command": "/usr/bin/g++",
-      "args": [
-        "-fdiagnostics-color=always",
-        "-g",
-        "${file}",
-        "-o",
-        "${fileDirname}/${fileBasenameNoExtension}"
-      ],
-      "options": {
-        "cwd": "${fileDirname}"
-      },
-      "problemMatcher": [
-        "$gcc"
-      ],
-      "group": "build",
-      "detail": "Tarea generada por el depurador."
-    },
-    {
-      "label": "Run test cases (C++,linux)",
-      "type": "shell",
-      "command": "base=\"${fileBasenameNoExtension}\"; for f in \"${base}\"*.in; do echo \"======= $f =======\"; expected=\"${f%.in}.out\"; \"./$base\" < \"$f\" > .tmp; cat .tmp; if diff -w -B .tmp \"$expected\" >/dev/null; then echo -e \"\\033[32m--- AC ---\\033[0m\"; else echo -e \"\\033[31m--- WA ---\\033[0m\"; fi; cat \"$expected\"; echo; done;",
-      "group": {
-        "kind": "test",
-        "isDefault": true
-      },
-      "dependsOn":[
-        "C/C++: g++ compilar archivo activo"
-      ]
-    },
-    {
-      "label": "Run test cases (python, linux)",
-      "type": "shell",
-      "command": "base=\"${fileBasenameNoExtension}\"; for f in \"${base}\"*.in; do echo \"======= $f =======\"; expected=\"${f%.in}.out\";pypy3 \"$base.py\" < \"$f\" > .tmp; cat .tmp; if diff -w -B .tmp \"$expected\" >/dev/null; then echo -e \"\\033[32m--- AC ---\\033[0m\"; else echo -e \"\\033[31m--- WA ---\\033[0m\"; fi; cat \"$expected\"; echo; done;",
-      "group": {
-        "kind": "test",
-        "isDefault": true
-      }
-    }
-
-  ],
-  "version": "2.0.0"
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C/C++: g++ compilar archivo activo",
+            "command": "/usr/bin/g++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "Tarea generada por el depurador."
+        },
+        {
+            "label": "Run test cases (C++,linux)",
+            "type": "shell",
+            "command": "base=\"${fileBasenameNoExtension}\"; for f in \"${base}\"*.in; do echo \"======= $f =======\"; expected=\"${f%.in}.out\"; \"./$base\" < \"$f\" > .tmp; cat .tmp; if diff -w -B .tmp \"$expected\" >/dev/null; then echo -e \"\\033[32m--- AC ---\\033[0m\"; else echo -e \"\\033[31m--- WA ---\\033[0m\"; fi; cat \"$expected\"; echo; done;",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "C/C++: g++ compilar archivo activo"
+            ]
+        },
+        {
+            "label": "Run test cases (python, linux)",
+            "type": "shell",
+            "command": "base=\"${fileBasenameNoExtension}\"; for f in \"${base}\"*.in; do echo \"======= $f =======\"; expected=\"${f%.in}.out\";pypy3 \"$base.py\" < \"$f\" > .tmp; cat .tmp; if diff -w -B .tmp \"$expected\" >/dev/null; then echo -e \"\\033[32m--- AC ---\\033[0m\"; else echo -e \"\\033[31m--- WA ---\\033[0m\"; fi; cat \"$expected\"; echo; done;",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        },
+        {
+            "type": "cppbuild",
+            "label": "C/C++: g++-13 compilar archivo activo",
+            "command": "/usr/bin/g++-13",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "Tarea generada por el depurador."
+        }
+    ],
+    "version": "2.0.0"
 }
