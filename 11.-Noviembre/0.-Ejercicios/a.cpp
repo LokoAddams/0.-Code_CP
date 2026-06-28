@@ -1,85 +1,62 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-//IMPRESINDIBLES PARA ICPC
-#define form(i, s, e) for(int i = s; i < e; i++)
-#define icin(x)  \
-  int x;         \
-  cin >> x;
-#define llcin(x) \
-  long long x;   \
-  cin >> x;
-#define scin(x)  \
-string x;        \
-cin >> x;
-#define endl '\n'
-#define S second
-#define F first
-#define pb push_back
-#define sz(x) x.size()
-#define all(x) x.begin(),x.end()
-
-typedef long long ll;
-typedef vector<int> vi;
-typedef vector<vi> vvi;
-typedef pair<int,int> pii;
-
-const ll INF =  1e9+7;//tambien es primo
-const double PI = acos(-1);
-//UTILES
-#define DBG(x) cerr << #x << '=' << (x) << endl
-#define coutDouble cout << fixed << setprecision(17)
-#define numtobin(n) bitset<32>(n).to_string()
-#define bintoint(bin_str) stoi(bin_str, nullptr, 2)  // bin_str should be a STRING
-#define LSOne(S) ((S) & -(S))
-
-typedef double db;
-typedef vector<string> vs;
-typedef vector<ll> vll;
-typedef vector<vll> vvll;
-typedef pair<int,bool> pib;
-typedef pair<ll,ll> pll;
-typedef vector<pii> vpii;
-typedef vector<pib> vpib;
-typedef vector<pll> vpll;
-
-
-
-
-int main() {
-  ios::sync_with_stdio(0);
-  cin.tie(0);
-  cout.tie(0);
-
-  icin(n)
-  vi a(n);
-  form(i,0,n)
-    cin >> a[i];
-
-  int maxi = 0;
-  form(i,0,n)
+int main()
+{
+  int n; cin >> n; 
+  map<int, int> m;
+  while (n--)
   {
-    int r = 0;
-    form(j,i+1,n)
-    {
-      if(a[j] <= a[j-1])
-        r++;
-      else
-        break;
-    }
-
-    int l = 0;
-
-    for(int j = i-1; j >= 0; j--)
-    {
-      if(a[j] <= a[j+1])
-        l++;
-      else
-        break;
-    }
-    maxi = max(maxi, l+r+1);
+    int aux; cin >> aux;
+    m[aux]++;
   }
-  cout << maxi << endl;
 
+  // Inicializamos mini con un valor muy grande
+  int mini = INT_MAX; 
+  queue<int> equipos_activos; // Guardará en qué número empezó cada equipo activo
+  
+  // Usamos el primer elemento - 1 para que el primer ciclo sea "consecutivo" por defecto
+  int ant_val = m.begin()->first - 1; 
+
+  for(auto [valor, frec]: m)
+  {
+    // 1. Si se rompe la racha consecutiva, TODOS los equipos activos se cierran
+    if(valor != ant_val + 1)
+    {
+      while(!equipos_activos.empty())
+      {
+        int inicio = equipos_activos.front();
+        equipos_activos.pop();
+        // El tamaño del equipo es (el último valor válido - donde inició + 1)
+        mini = min(mini, ant_val - inicio + 1); 
+      }
+    }
+    
+    // 2. Si la frecuencia bajó, cerramos los equipos sobrantes (los más antiguos)
+    while(equipos_activos.size() > frec)
+    {
+      int inicio = equipos_activos.front();
+      equipos_activos.pop();
+      mini = min(mini, ant_val - inicio + 1); 
+    }
+    
+    // 3. Si la frecuencia subió (o acabamos de vaciar la cola), nacen nuevos equipos
+    while(equipos_activos.size() < frec)
+    {
+      equipos_activos.push(valor); // El equipo nace en el 'valor' actual
+    }
+    
+    ant_val = valor;
+  }
+
+  // 4. Al terminar de recorrer el mapa, cerramos cualquier equipo que haya quedado abierto
+  while(!equipos_activos.empty())
+  {
+    int inicio = equipos_activos.front();
+    equipos_activos.pop();
+    mini = min(mini, ant_val - inicio + 1);
+  }
+
+  cout << mini << endl;
   return 0;
 }

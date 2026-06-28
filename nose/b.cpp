@@ -26,7 +26,6 @@ typedef pair<int,int> pii;
 
 const ll INF =  1e9+7;//tambien es primo
 const double PI = acos(-1);
-const double EPS = 1e-7;
 //UTILES
 #define DBG(x) cerr << #x << '=' << (x) << endl
 #define coutDouble cout << fixed << setprecision(17)
@@ -52,6 +51,27 @@ int main() {
   cin.tie(0);
   cout.tie(0);
 
-  cout << 1/5<<endl;
+  icin(n)icin(o)
+  vi a(n);
+  form(i,0,n)
+    cin >> a[i];
+  int cont = 0;
+  if(a[o-1]) cont++;
+  for (int r = o , l = o - 2; ((r < n) or (l >= 0)) ; r++, l--)
+  {
+    if(((r < n) and (l >= 0)))
+    {
+      if(a[l] + a[r] == 2) cont += 2;
+    }
+    else
+    {
+      if(!(r < n))
+        if(a[l]) cont++;
+      if(!(l >= 0))
+        if(a[r]) cont++;
+    }
+  }
+  cout << cont << endl;
+
   return 0;
 }

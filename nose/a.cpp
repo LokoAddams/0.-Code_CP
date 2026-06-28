@@ -51,18 +51,35 @@ int main() {
   cin.tie(0);
   cout.tie(0);
 
-  scin(s)
-  ll sum = 0;
-  int cont = 0;
-  while(sum >= 10 or s.size() >= 2)
+  icin(n)
+  vi a(n);
+  form(i,0,n)
+    cin >> a[i];
+
+  int maxi = 0;
+  form(i,0,n)
   {
-    sum = 0;
-    for (auto& c : s) {
-      int num = c - '0';
-      sum += num;
+    int r = 0;
+    form(j,i+1,n)
+    {
+      if(a[j] <= a[j-1])
+        r++;
+      else
+        break;
     }
-    s = to_string(sum);
-    cont++;
+
+    int l = 0;
+
+    for(int j = i-1; j >= 0; j--)
+    {
+      if(a[j] <= a[j+1])
+        l++;
+      else
+        break;
+    }
+    maxi = max(maxi, l+r+1);
   }
+  cout << maxi << endl;
+
   return 0;
 }

@@ -51,18 +51,37 @@ int main() {
   cin.tie(0);
   cout.tie(0);
 
-  scin(s)
-  ll sum = 0;
-  int cont = 0;
-  while(sum >= 10 or s.size() >= 2)
+  icin(n)
+  vector<long long> a(n+1);
+  form(i,1,n+1)
+    cin >> a[i];
+    
+  ll ener = 0, d = 0;
+  a[0] = 0;
+  form(i,0,n)
   {
-    sum = 0;
-    for (auto& c : s) {
-      int num = c - '0';
-      sum += num;
+    if(a[i] + ener <= a[i+1])
+    {
+      d += (a[i+1] - (a[i] + ener));
+      ener = 0;
     }
-    s = to_string(sum);
-    cont++;
+    else
+    {
+      if(a[i] > a[i+1])
+      {
+        ener += (a[i] - a[i+1]);
+      }
+      else
+      {
+        if(ener >= a[i+1] - a[i])
+        {
+          ener -= (a[i+1] - a[i]);
+        }
+      }
+      
+    }
   }
+  cout << d << endl;
+
   return 0;
 }

@@ -51,18 +51,27 @@ int main() {
   cin.tie(0);
   cout.tie(0);
 
-  scin(s)
-  ll sum = 0;
-  int cont = 0;
-  while(sum >= 10 or s.size() >= 2)
+  icin(n)icin(m)
+  vector<pii> vec(m);
+  form(i,0,m)
   {
-    sum = 0;
-    for (auto& c : s) {
-      int num = c - '0';
-      sum += num;
-    }
-    s = to_string(sum);
-    cont++;
+    icin(a)icin(b)
+    vec[i] = {b,a};
   }
+  sort(all(vec), greater<pii>());
+  ll ans = 0;
+  for (auto& p : vec) {
+    if(n <= 0) break;
+    if(n - p.second >= 0)
+    {
+      ans += (p.second*p.first);
+    }
+    else
+    {
+      ans += (n*p.first);
+    }
+    n -= p.second;
+  }
+  cout << ans << endl;
   return 0;
 }
